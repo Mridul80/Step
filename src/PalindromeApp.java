@@ -1,25 +1,38 @@
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 public class PalindromeApp {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a string: ");
-        String str = sc.nextLine();
 
+    public static void main(String[] args) {
+
+        String input = "LEVEL";
+        Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
-        for (int i = 0; i < str.length(); i++) {
-            stack.push(str.charAt(i));
+        for (char ch : input.toCharArray()) {
+            queue.add(ch);
+            stack.push(ch);
         }
-        String reversed = "";
-        while (!stack.isEmpty()) {
-            reversed += stack.pop();
+        System.out.println("Input String: " + input);
+        System.out.println("\nComparing Dequeue (Queue) and Pop (Stack):");
+
+        boolean isPalindrome = true;
+
+        while (!queue.isEmpty()) {
+            char fromQueue = queue.remove();
+            char fromStack = stack.pop();
+
+            System.out.println("Queue: " + fromQueue +
+                    " | Stack: " + fromStack);
+
+            if (fromQueue != fromStack) {
+                isPalindrome = false;
+            }
         }
-        if (str.equals(reversed)) {
-            System.out.println("The string is a Palindrome.");
+        if (isPalindrome) {
+            System.out.println("\nResult: It is a Palindrome.");
         } else {
-            System.out.println("The string is NOT a Palindrome.");
+            System.out.println("\nResult: It is NOT a Palindrome.");
         }
-        sc.close();
     }
 }
