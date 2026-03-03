@@ -1,38 +1,30 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.Deque;
+import java.util.ArrayDeque;
 public class PalindromeApp {
 
-    public static void main(String[] args) {
+    public static boolean isPalindrome(String text) {
+        Deque<Character> deque = new ArrayDeque<>();
 
-        String input = "LEVEL";
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
-
-        for (char ch : input.toCharArray()) {
-            queue.add(ch);
-            stack.push(ch);
+        for (char ch : text.toCharArray()) {
+            deque.addLast(ch);
         }
-        System.out.println("Input String: " + input);
-        System.out.println("\nComparing Dequeue (Queue) and Pop (Stack):");
 
-        boolean isPalindrome = true;
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
 
-        while (!queue.isEmpty()) {
-            char fromQueue = queue.remove();
-            char fromStack = stack.pop();
-
-            System.out.println("Queue: " + fromQueue +
-                    " | Stack: " + fromStack);
-
-            if (fromQueue != fromStack) {
-                isPalindrome = false;
+            if (front != rear) {
+                return false;
             }
         }
-        if (isPalindrome) {
-            System.out.println("\nResult: It is a Palindrome.");
-        } else {
-            System.out.println("\nResult: It is NOT a Palindrome.");
-        }
+
+        return true;
+    }
+    public static void main(String[] args) {
+        String str1 = "madam";
+        String str2 = "hello";
+
+        System.out.println(str1 + " -> " + isPalindrome(str1));
+        System.out.println(str2 + " -> " + isPalindrome(str2));
     }
 }
