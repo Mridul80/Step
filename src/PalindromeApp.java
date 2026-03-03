@@ -1,23 +1,30 @@
+import java.util.Scanner;
+
 public class PalindromeApp {
-    public static boolean isPalindrome(String str, int start, int end) {
-        if (start >= end) {
-            return true;
-        }
+    public static boolean isPalindrome(String str) {
+        String normalizedStr = str.replaceAll("\\s+", "").toLowerCase();
 
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
+        int left = 0;
+        int right = normalizedStr.length() - 1;
 
-        return isPalindrome(str, start + 1, end - 1);
+        while (left < right) {
+            if (normalizedStr.charAt(left) != normalizedStr.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
     }
-
     public static void main(String[] args) {
-        String str = "racecar";
-
-        if (isPalindrome(str, 0, str.length() - 1)) {
-            System.out.println(str + " is a palindrome.");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a string to check palindrome:");
+        String input = sc.nextLine();
+        if (isPalindrome(input)) {
+            System.out.println("The string is a palindrome (case-insensitive & space-ignored).");
         } else {
-            System.out.println(str + " is not a palindrome.");
+            System.out.println("The string is NOT a palindrome.");
         }
+        sc.close();
     }
 }
